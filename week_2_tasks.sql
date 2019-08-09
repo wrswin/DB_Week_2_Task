@@ -83,3 +83,30 @@ INSERT INTO PlayerRegistration (PlayerId, ClubName, Seasonyear, SeasonName, AgeG
     (1003, 'Boston Competitive Shin-kicking Club', 2019, 'Summer', 'U14', 1, '2019-07-08'),
     (1002, 'Best Chess Club', 2020, 'Summer', 'U14', 2, '2019-09-10')
 ;
+
+SELECT R.PlayerId, P.Fname, P.Lname, P.Phone, R.ClubName, C.ContactName, R.SeasonYear, R.SeasonName, R.AgeGroup, R.TeamNumber
+    FROM PlayerRegistration R
+    INNER JOIN Player P
+    ON P.PlayerId = R.PlayerId
+    INNER JOIN TeamEntry T
+    ON T.ClubName = R.ClubName AND T.SeasonYear = R.SeasonYear AND T.SeasonName = R.SeasonName AND T.AgeGroup = R.AgeGroup AND T.TeamNumber = R.TeamNumber
+    INNER JOIN Season S
+    ON S.SeasonYear = R.SeasonYear AND S.SeasonName = R.SeasonName
+    INNER JOIN Club C
+    ON C.ClubName = R.ClubName
+    ORDER BY PlayerId ASC
+;
+
+SELECT R.SeasonYear, R.AgeGroup, COUNT(R.PlayerId) as 'Number of Player'
+    FROM PlayerRegistration R
+    GROUP BY R.SeasonYear, R.AgeGroup
+    ORDER BY SeasonYear ASC, AgeGroup ASC
+;
+
+SELECT *
+    FROM PlayerRegistration R
+    WHERE R.PlayerId > (
+        SELECT AVG(R.PlayerId)
+            FROM PlayerRegistration R
+    )
+;
