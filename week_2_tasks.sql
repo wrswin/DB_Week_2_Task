@@ -43,7 +43,7 @@ CREATE TABLE PlayerRegistration (
     AgeGroup NVARCHAR(3) NOT NULL,
     TeamNumber INT NOT NULL,
     DateRegistered DATE NOT NULL,
-    PRIMARY KEY (PlayerId, ClubName, Seasonyear, SeasonName, AgeGroup, TeamNumber),
+    PRIMARY KEY (PlayerId, ClubName, SeasonYear, SeasonName, AgeGroup, TeamNumber),
     FOREIGN KEY (PlayerId) REFERENCES Player,
     FOREIGN KEY (ClubName) REFERENCES Club,
     FOREIGN KEY (SeasonYear, SeasonName) ReFeReNcEs Season
